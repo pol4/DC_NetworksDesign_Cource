@@ -1,0 +1,161 @@
+spine1(config-router-isis-af)#show isis neighbors detail
+
+Instance  VRF      System Id        Type Interface          SNPA              State Hold time   Circuit Id
+ISIS_NET  default  leaf1            L2   Ethernet1          c:f6:2f:cd:54:55  UP    7           leaf1.11
+  Area addresses: 49.0001
+  SNPA: c:f6:2f:cd:54:55
+  Router ID: 0.0.0.0
+  Advertised Hold Time: 9
+  State Changed: 00:18:34 ago at 2026-04-27 11:45:02
+  LAN Priority: 64
+  IPv4 Interface Address: 10.0.0.1
+  IPv6 Interface Address: none
+  Interface name: Ethernet1
+  Graceful Restart: Supported
+  BFD IPv4 state is up
+  Supported Address Families: IPv4
+  Neighbor Supported Address Families: IPv4
+ISIS_NET  default  leaf2            L2   Ethernet2          c:a8:1c:98:71:dc  UP    28          spine1.13
+  Area addresses: 49.0001
+  SNPA: c:a8:1c:98:71:dc
+  Router ID: 0.0.0.0
+  Advertised Hold Time: 30
+  State Changed: 00:18:05 ago at 2026-04-27 11:45:31
+  LAN Priority: 64
+  IPv4 Interface Address: 10.0.0.3
+  IPv6 Interface Address: none
+  Interface name: Ethernet2
+  Graceful Restart: Supported
+  BFD IPv4 state is up
+  Supported Address Families: IPv4
+  Neighbor Supported Address Families: IPv4
+ISIS_NET  default  leaf3            L2   Ethernet3          c:2a:a2:5:37:eb   UP    22          spine1.12
+  Area addresses: 49.0001
+  SNPA: c:2a:a2:5:37:eb
+  Router ID: 0.0.0.0
+  Advertised Hold Time: 30
+  State Changed: 00:17:44 ago at 2026-04-27 11:45:52
+  LAN Priority: 64
+  IPv4 Interface Address: 10.0.0.5
+  IPv6 Interface Address: none
+  Interface name: Ethernet3
+  Graceful Restart: Supported
+  BFD IPv4 state is up
+  Supported Address Families: IPv4
+  Neighbor Supported Address Families: IPv4
+
+
+
+spine1(config-router-isis-af)#show ip route isis
+
+VRF: default
+Source Codes:
+       C - connected, S - static, K - kernel,
+       O - OSPF, O IA - OSPF inter area, O E1 - OSPF external type 1,
+       O E2 - OSPF external type 2, O N1 - OSPF NSSA external type 1,
+       O N2 - OSPF NSSA external type2, O3 - OSPFv3,
+       O3 IA - OSPFv3 inter area, O3 E1 - OSPFv3 external type 1,
+       O3 E2 - OSPFv3 external type 2,
+       O3 N1 - OSPFv3 NSSA external type 1,
+       O3 N2 - OSPFv3 NSSA external type2, B - Other BGP Routes,
+       B I - iBGP, B E - eBGP, R - RIP, I L1 - IS-IS level 1,
+       I L2 - IS-IS level 2, A B - BGP Aggregate,
+       A O - OSPF Summary, NG - Nexthop Group Static Route,
+       V - VXLAN Control Service, M - Martian,
+       DH - DHCP client installed default route,
+       DP - Dynamic Policy Route, L - VRF Leaked,
+       G  - gRIBI, RC - Route Cache Route,
+       CL - CBF Leaked Route
+
+ I L2     10.0.0.6/31 [115/20]
+           via 10.0.0.1, Ethernet1
+ I L2     10.0.0.8/31 [115/20]
+           via 10.0.0.3, Ethernet2
+ I L2     10.0.0.10/31 [115/20]
+           via 10.0.0.5, Ethernet3
+ I L2     172.16.10.0/24 [115/10]
+           via 10.0.0.1, Ethernet1
+ I L2     172.16.20.0/24 [115/10]
+           via 10.0.0.3, Ethernet2
+ I L2     172.16.30.0/24 [115/10]
+           via 10.0.0.5, Ethernet3
+ I L2     192.168.0.2/32 [115/20]
+           via 10.0.0.1, Ethernet1
+           via 10.0.0.3, Ethernet2
+           via 10.0.0.5, Ethernet3
+ I L2     192.168.0.101/32 [115/10]
+           via 10.0.0.1, Ethernet1
+ I L2     192.168.0.102/32 [115/10]
+           via 10.0.0.3, Ethernet2
+ I L2     192.168.0.103/32 [115/10]
+           via 10.0.0.5, Ethernet3
+
+spine1(config-router-isis-af)#show ip route
+
+VRF: default
+Source Codes:
+       C - connected, S - static, K - kernel,
+       O - OSPF, O IA - OSPF inter area, O E1 - OSPF external type 1,
+       O E2 - OSPF external type 2, O N1 - OSPF NSSA external type 1,
+       O N2 - OSPF NSSA external type2, O3 - OSPFv3,
+       O3 IA - OSPFv3 inter area, O3 E1 - OSPFv3 external type 1,
+       O3 E2 - OSPFv3 external type 2,
+       O3 N1 - OSPFv3 NSSA external type 1,
+       O3 N2 - OSPFv3 NSSA external type2, B - Other BGP Routes,
+       B I - iBGP, B E - eBGP, R - RIP, I L1 - IS-IS level 1,
+       I L2 - IS-IS level 2, A B - BGP Aggregate,
+       A O - OSPF Summary, NG - Nexthop Group Static Route,
+       V - VXLAN Control Service, M - Martian,
+       DH - DHCP client installed default route,
+       DP - Dynamic Policy Route, L - VRF Leaked,
+       G  - gRIBI, RC - Route Cache Route,
+       CL - CBF Leaked Route
+
+Gateway of last resort is not set
+
+ C        10.0.0.0/31
+           directly connected, Ethernet1
+ C        10.0.0.2/31
+           directly connected, Ethernet2
+ C        10.0.0.4/31
+           directly connected, Ethernet3
+ I L2     10.0.0.6/31 [115/20]
+           via 10.0.0.1, Ethernet1
+ I L2     10.0.0.8/31 [115/20]
+           via 10.0.0.3, Ethernet2
+ I L2     10.0.0.10/31 [115/20]
+           via 10.0.0.5, Ethernet3
+ I L2     172.16.10.0/24 [115/10]
+           via 10.0.0.1, Ethernet1
+ I L2     172.16.20.0/24 [115/10]
+           via 10.0.0.3, Ethernet2
+ I L2     172.16.30.0/24 [115/10]
+           via 10.0.0.5, Ethernet3
+ C        192.168.0.1/32
+           directly connected, Loopback0
+ I L2     192.168.0.2/32 [115/20]
+           via 10.0.0.1, Ethernet1
+           via 10.0.0.3, Ethernet2
+           via 10.0.0.5, Ethernet3
+ I L2     192.168.0.101/32 [115/10]
+           via 10.0.0.1, Ethernet1
+ I L2     192.168.0.102/32 [115/10]
+           via 10.0.0.3, Ethernet2
+ I L2     192.168.0.103/32 [115/10]
+           via 10.0.0.5, Ethernet3
+
+PC1> ping 172.16.30.1
+
+84 bytes from 172.16.30.1 icmp_seq=1 ttl=61 time=9.415 ms
+84 bytes from 172.16.30.1 icmp_seq=2 ttl=61 time=3.339 ms
+84 bytes from 172.16.30.1 icmp_seq=3 ttl=61 time=3.366 ms
+84 bytes from 172.16.30.1 icmp_seq=4 ttl=61 time=3.782 ms
+84 bytes from 172.16.30.1 icmp_seq=5 ttl=61 time=3.007 ms
+
+PC1> ping 172.16.30.2
+
+84 bytes from 172.16.30.2 icmp_seq=1 ttl=61 time=4.044 ms
+84 bytes from 172.16.30.2 icmp_seq=2 ttl=61 time=2.993 ms
+84 bytes from 172.16.30.2 icmp_seq=3 ttl=61 time=3.035 ms
+84 bytes from 172.16.30.2 icmp_seq=4 ttl=61 time=3.038 ms
+84 bytes from 172.16.30.2 icmp_seq=5 ttl=61 time=3.699 ms
