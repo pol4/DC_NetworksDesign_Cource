@@ -8,3 +8,4 @@
 - [Лабораторная работа №2: Построение Underlay сети (OSPF)](HW2/Readme.md)
 - [Лабораторная работа №3: Построение Underlay сети (ISIS)](HW3/Readme.md)
 - [Лабораторная работа №4: Построение Underlay сети (eBGP)](HW4/Readme.md)
+- [Лабораторная работа №5: EVPN L2VPN поверх eBGP Underlay](HW5/Readme.md)
