@@ -9,3 +9,4 @@
 - [Лабораторная работа №3: Построение Underlay сети (ISIS)](HW3/Readme.md)
 - [Лабораторная работа №4: Построение Underlay сети (eBGP)](HW4/Readme.md)
 - [Лабораторная работа №5: EVPN L2VPN поверх eBGP Underlay](HW5/Readme.md)
+- [Лабораторная работа №6: EVPN L3VPN с Symmetric IRB](HW6/Readme.md)

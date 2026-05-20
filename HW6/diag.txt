@@ -1,0 +1,393 @@
+spine1(config-router-bgp-af)#show ip bgp summary
+BGP summary information for VRF default
+Router identifier 192.168.0.1, local AS number 65001
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor      V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc PfxAdv
+  Link-to-leaf1            10.0.0.1      4 65011             10        11    0    0 00:03:50 Estab   2      2      5
+  Link-to-leaf2            10.0.0.3      4 65012             12        11    0    0 00:03:50 Estab   2      2      5
+  Link-to-leaf3            10.0.0.5      4 65013             10        11    0    0 00:03:50 Estab   2      2      5
+  leaf1-overlay            192.168.0.101 4 65011             16        18    0    0 00:03:49 Estab   2      2      7
+  leaf2-overlay            192.168.0.102 4 65012             16        18    0    0 00:03:50 Estab   2      2      7
+  leaf3-overlay            192.168.0.103 4 65013             17        17    0    0 00:03:49 Estab   2      2      7
+spine1(config-router-bgp-af)#
+
+spine1(config-router-bgp-af)#show bgp evpn summary
+BGP summary information for VRF default
+Router identifier 192.168.0.1, local AS number 65001
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor      V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc PfxAdv
+  leaf1-overlay            192.168.0.101 4 65011             16        19    0    0 00:04:32 Estab   2      2      6
+  leaf2-overlay            192.168.0.102 4 65012             17        19    0    0 00:04:34 Estab   2      2      6
+  leaf3-overlay            192.168.0.103 4 65013             18        18    0    0 00:04:32 Estab   4      4      4
+spine1(config-router-bgp-af)#
+
+spine1(config-router-bgp-af)#show bgp evpn
+BGP routing table information for VRF default
+Router identifier 192.168.0.1, local AS number 65001
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+                    c - Contributing to ECMP, % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  LocPref Weight  Path
+ * >      RD: 192.168.0.101:10010 imet 192.168.1.101
+                                 192.168.1.101         -       100     0       65011 i
+ * >      RD: 192.168.0.102:10020 imet 192.168.1.102
+                                 192.168.1.102         -       100     0       65012 i
+ * >      RD: 192.168.0.103:10030 imet 192.168.1.103
+                                 192.168.1.103         -       100     0       65013 i
+ * >      RD: 192.168.0.103:10040 imet 192.168.1.103
+                                 192.168.1.103         -       100     0       65013 i
+ * >      RD: 192.168.0.101:999 ip-prefix 10.1.10.0/24
+                                 192.168.1.101         -       100     0       65011 i
+ * >      RD: 192.168.0.102:999 ip-prefix 10.1.20.0/24
+                                 192.168.1.102         -       100     0       65012 i
+ * >      RD: 192.168.0.103:999 ip-prefix 10.1.30.0/24
+                                 192.168.1.103         -       100     0       65013 i
+ * >      RD: 192.168.0.103:999 ip-prefix 10.1.40.0/24
+                                 192.168.1.103         -       100     0       65013 i
+spine1(config-router-bgp-af)#
+
+spine1#show bgp evpn route-type mac-ip
+BGP routing table information for VRF default
+Router identifier 192.168.0.1, local AS number 65001
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+                    c - Contributing to ECMP, % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  LocPref Weight  Path
+spine1#
+
+spine1#show bgp evpn route-type ip-prefix
+BGP routing table information for VRF default
+Router identifier 192.168.0.1, local AS number 65001
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+                    c - Contributing to ECMP, % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  LocPref Weight  Path
+ * >      RD: 192.168.0.101:999 ip-prefix 10.1.10.0/24
+                                 192.168.1.101         -       100     0       65011 i
+ * >      RD: 192.168.0.102:999 ip-prefix 10.1.20.0/24
+                                 192.168.1.102         -       100     0       65012 i
+ * >      RD: 192.168.0.103:999 ip-prefix 10.1.30.0/24
+                                 192.168.1.103         -       100     0       65013 i
+ * >      RD: 192.168.0.103:999 ip-prefix 10.1.40.0/24
+                                 192.168.1.103         -       100     0       65013 i
+spine1#
+
+
+
+
+leaf1(config-router-bgp-vrf-TENANT1)#show ip bgp summary
+BGP summary information for VRF default
+Router identifier 192.168.0.101, local AS number 65011
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor    V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc PfxAdv
+  Link-to-spine1           10.0.0.0    4 65001              7         6    0    0 00:00:26 Estab   5      5      3
+  Link-to-spine2           10.0.0.6    4 65001              7         8    0    0 00:00:18 Estab   5      5      7
+  spine1-overlay           192.168.0.1 4 65001             14        12    0    0 00:00:25 Estab   5      5      8
+  spine2-overlay           192.168.0.2 4 65001             14        17    0    0 00:00:17 Estab   5      5      8
+leaf1(config-router-bgp-vrf-TENANT1)#
+
+leaf1(config-router-bgp-vrf-TENANT1)#show bgp evpn summary
+BGP summary information for VRF default
+Router identifier 192.168.0.101, local AS number 65011
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor    V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc PfxAdv
+  spine1-overlay           192.168.0.1 4 65001             15        12    0    0 00:01:06 Estab   6      6      2
+  spine2-overlay           192.168.0.2 4 65001             15        18    0    0 00:00:58 Estab   6      6      8
+leaf1(config-router-bgp-vrf-TENANT1)#
+
+leaf1(config-router-bgp-vrf-TENANT1)#show bgp evpn
+BGP routing table information for VRF default
+Router identifier 192.168.0.101, local AS number 65011
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+                    c - Contributing to ECMP, % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  LocPref Weight  Path
+ * >      RD: 192.168.0.101:10010 imet 192.168.1.101
+                                 -                     -       -       0       i
+ * >Ec    RD: 192.168.0.102:10020 imet 192.168.1.102
+                                 192.168.1.102         -       100     0       65001 65012 i
+ *  ec    RD: 192.168.0.102:10020 imet 192.168.1.102
+                                 192.168.1.102         -       100     0       65001 65012 i
+ * >Ec    RD: 192.168.0.103:10030 imet 192.168.1.103
+                                 192.168.1.103         -       100     0       65001 65013 i
+ *  ec    RD: 192.168.0.103:10030 imet 192.168.1.103
+                                 192.168.1.103         -       100     0       65001 65013 i
+ * >Ec    RD: 192.168.0.103:10040 imet 192.168.1.103
+                                 192.168.1.103         -       100     0       65001 65013 i
+ *  ec    RD: 192.168.0.103:10040 imet 192.168.1.103
+                                 192.168.1.103         -       100     0       65001 65013 i
+ * >      RD: 192.168.0.101:999 ip-prefix 10.1.10.0/24
+                                 -                     -       -       0       i
+ * >      RD: 192.168.0.102:999 ip-prefix 10.1.20.0/24
+                                 192.168.1.102         -       100     0       65001 65012 i
+ *        RD: 192.168.0.102:999 ip-prefix 10.1.20.0/24
+                                 192.168.1.102         -       100     0       65001 65012 i
+ * >      RD: 192.168.0.103:999 ip-prefix 10.1.30.0/24
+                                 192.168.1.103         -       100     0       65001 65013 i
+ *        RD: 192.168.0.103:999 ip-prefix 10.1.30.0/24
+                                 192.168.1.103         -       100     0       65001 65013 i
+ * >      RD: 192.168.0.103:999 ip-prefix 10.1.40.0/24
+                                 192.168.1.103         -       100     0       65001 65013 i
+ *        RD: 192.168.0.103:999 ip-prefix 10.1.40.0/24
+                                 192.168.1.103         -       100     0       65001 65013 i
+leaf1(config-router-bgp-vrf-TENANT1)#
+
+
+leaf1(config-router-bgp-vrf-TENANT1)#show bgp evpn route-type mac-ip
+BGP routing table information for VRF default
+Router identifier 192.168.0.101, local AS number 65011
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+                    c - Contributing to ECMP, % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  LocPref Weight  Path
+
+
+leaf1(config-router-bgp-vrf-TENANT1)#show bgp evpn route-type ip-prefix
+BGP routing table information for VRF default
+Router identifier 192.168.0.101, local AS number 65011
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+                    c - Contributing to ECMP, % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  LocPref Weight  Path
+ * >      RD: 192.168.0.101:999 ip-prefix 10.1.10.0/24
+                                 -                     -       -       0       i
+ * >      RD: 192.168.0.102:999 ip-prefix 10.1.20.0/24
+                                 192.168.1.102         -       100     0       65001 65012 i
+ *        RD: 192.168.0.102:999 ip-prefix 10.1.20.0/24
+                                 192.168.1.102         -       100     0       65001 65012 i
+ * >      RD: 192.168.0.103:999 ip-prefix 10.1.30.0/24
+                                 192.168.1.103         -       100     0       65001 65013 i
+ *        RD: 192.168.0.103:999 ip-prefix 10.1.30.0/24
+                                 192.168.1.103         -       100     0       65001 65013 i
+ * >      RD: 192.168.0.103:999 ip-prefix 10.1.40.0/24
+                                 192.168.1.103         -       100     0       65001 65013 i
+ *        RD: 192.168.0.103:999 ip-prefix 10.1.40.0/24
+                                 192.168.1.103         -       100     0       65001 65013 i
+leaf1(config-router-bgp-vrf-TENANT1)#
+
+leaf1(config-router-bgp-vrf-TENANT1)#show vrf
+Maximum number of VRFs allowed: 1024
+   VRF           Protocols       State         Interfaces
+------------- --------------- ---------------- ------------------
+   TENANT1       IPv4            routing       Vl10, Vl4097
+   TENANT1       IPv6            no routing    Vl4097
+   default       IPv4            routing       Et1, Et2, Lo0, Lo1
+   default       IPv6            no routing
+
+leaf1(config-router-bgp-vrf-TENANT1)#
+
+leaf1(config-router-bgp-vrf-TENANT1)#show ip route vrf TENANT1
+
+VRF: TENANT1
+Source Codes:
+       C - connected, S - static, K - kernel,
+       O - OSPF, O IA - OSPF inter area, O E1 - OSPF external type 1,
+       O E2 - OSPF external type 2, O N1 - OSPF NSSA external type 1,
+       O N2 - OSPF NSSA external type2, O3 - OSPFv3,
+       O3 IA - OSPFv3 inter area, O3 E1 - OSPFv3 external type 1,
+       O3 E2 - OSPFv3 external type 2,
+       O3 N1 - OSPFv3 NSSA external type 1,
+       O3 N2 - OSPFv3 NSSA external type2, B - Other BGP Routes,
+       B I - iBGP, B E - eBGP, R - RIP, I L1 - IS-IS level 1,
+       I L2 - IS-IS level 2, A B - BGP Aggregate,
+       A O - OSPF Summary, NG - Nexthop Group Static Route,
+       V - VXLAN Control Service, M - Martian,
+       DH - DHCP client installed default route,
+       DP - Dynamic Policy Route, L - VRF Leaked,
+       G  - gRIBI, RC - Route Cache Route,
+       CL - CBF Leaked Route
+
+Gateway of last resort is not set
+
+ C        10.1.10.0/24
+           directly connected, Vlan10
+ B E      10.1.20.0/24 [200/0]
+           via VTEP 192.168.1.102 VNI 999 router-mac 0c:a8:1c:98:71:dc local-interface Vxlan1
+ B E      10.1.30.0/24 [200/0]
+           via VTEP 192.168.1.103 VNI 999 router-mac 0c:2a:a2:05:37:eb local-interface Vxlan1
+ B E      10.1.40.0/24 [200/0]
+           via VTEP 192.168.1.103 VNI 999 router-mac 0c:2a:a2:05:37:eb local-interface Vxlan1
+
+
+leaf1(config-router-bgp-vrf-TENANT1)#show ip route vrf TENANT1
+
+VRF: TENANT1
+Source Codes:
+       C - connected, S - static, K - kernel,
+       O - OSPF, O IA - OSPF inter area, O E1 - OSPF external type 1,
+       O E2 - OSPF external type 2, O N1 - OSPF NSSA external type 1,
+       O N2 - OSPF NSSA external type2, O3 - OSPFv3,
+       O3 IA - OSPFv3 inter area, O3 E1 - OSPFv3 external type 1,
+       O3 E2 - OSPFv3 external type 2,
+       O3 N1 - OSPFv3 NSSA external type 1,
+       O3 N2 - OSPFv3 NSSA external type2, B - Other BGP Routes,
+       B I - iBGP, B E - eBGP, R - RIP, I L1 - IS-IS level 1,
+       I L2 - IS-IS level 2, A B - BGP Aggregate,
+       A O - OSPF Summary, NG - Nexthop Group Static Route,
+       V - VXLAN Control Service, M - Martian,
+       DH - DHCP client installed default route,
+       DP - Dynamic Policy Route, L - VRF Leaked,
+       G  - gRIBI, RC - Route Cache Route,
+       CL - CBF Leaked Route
+
+Gateway of last resort is not set
+
+ C        10.1.10.0/24
+           directly connected, Vlan10
+ B E      10.1.20.0/24 [200/0]
+           via VTEP 192.168.1.102 VNI 999 router-mac 0c:a8:1c:98:71:dc local-interface Vxlan1
+ B E      10.1.30.0/24 [200/0]
+           via VTEP 192.168.1.103 VNI 999 router-mac 0c:2a:a2:05:37:eb local-interface Vxlan1
+ B E      10.1.40.0/24 [200/0]
+           via VTEP 192.168.1.103 VNI 999 router-mac 0c:2a:a2:05:37:eb local-interface Vxlan1
+
+leaf1(config-router-bgp-vrf-TENANT1)#show vxlan vtep
+Remote VTEPS for Vxlan1:
+
+VTEP       Tunnel Type(s)
+---------- --------------
+
+Total number of remote VTEPS:  0
+leaf1(config-router-bgp-vrf-TENANT1)#
+
+leaf1(config-router-bgp-vrf-TENANT1)#show vxlan vni
+VNI to VLAN Mapping for Vxlan1
+VNI         VLAN       Source       Interface       802.1Q Tag
+----------- ---------- ------------ --------------- ----------
+10010       10         static       Ethernet3       untagged
+                                    Vxlan1          10
+
+VNI to dynamic VLAN Mapping for Vxlan1
+VNI       VLAN       VRF           Source
+--------- ---------- ------------- ------------
+999       4097       TENANT1       evpn
+
+leaf1(config-router-bgp-vrf-TENANT1)#show bgp evpn route-type mac-ip
+BGP routing table information for VRF default
+Router identifier 192.168.0.101, local AS number 65011
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+                    c - Contributing to ECMP, % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  LocPref Weight  Path
+ * >      RD: 192.168.0.101:10010 mac-ip 0050.7966.6800
+                                 -                     -       -       0       i
+ * >      RD: 192.168.0.101:10010 mac-ip 0050.7966.6800 10.1.10.10
+                                 -                     -       -       0       i
+ * >Ec    RD: 192.168.0.102:10020 mac-ip 0050.7966.6801
+                                 192.168.1.102         -       100     0       65001 65012 i
+ *  ec    RD: 192.168.0.102:10020 mac-ip 0050.7966.6801
+                                 192.168.1.102         -       100     0       65001 65012 i
+ * >Ec    RD: 192.168.0.102:10020 mac-ip 0050.7966.6801 10.1.20.10
+                                 192.168.1.102         -       100     0       65001 65012 i
+ *  ec    RD: 192.168.0.102:10020 mac-ip 0050.7966.6801 10.1.20.10
+                                 192.168.1.102         -       100     0       65001 65012 i
+ * >Ec    RD: 192.168.0.103:10030 mac-ip 0050.7966.6802
+                                 192.168.1.103         -       100     0       65001 65013 i
+ *  ec    RD: 192.168.0.103:10030 mac-ip 0050.7966.6802
+                                 192.168.1.103         -       100     0       65001 65013 i
+ * >Ec    RD: 192.168.0.103:10030 mac-ip 0050.7966.6802 10.1.30.10
+                                 192.168.1.103         -       100     0       65001 65013 i
+ *  ec    RD: 192.168.0.103:10030 mac-ip 0050.7966.6802 10.1.30.10
+                                 192.168.1.103         -       100     0       65001 65013 i
+ * >Ec    RD: 192.168.0.103:10040 mac-ip 0050.7966.6803
+                                 192.168.1.103         -       100     0       65001 65013 i
+ *  ec    RD: 192.168.0.103:10040 mac-ip 0050.7966.6803
+                                 192.168.1.103         -       100     0       65001 65013 i
+ * >Ec    RD: 192.168.0.103:10040 mac-ip 0050.7966.6803 10.1.40.10
+                                 192.168.1.103         -       100     0       65001 65013 i
+ *  ec    RD: 192.168.0.103:10040 mac-ip 0050.7966.6803 10.1.40.10
+                                 192.168.1.103         -       100     0       65001 65013 i
+leaf1(config-router-bgp-vrf-TENANT1)#
+
+
+leaf1(config-router-bgp-vrf-TENANT1)#show bgp evpn route-type ip-prefix
+BGP routing table information for VRF default
+Router identifier 192.168.0.101, local AS number 65011
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+                    c - Contributing to ECMP, % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+          Network                Next Hop              Metric  LocPref Weight  Path
+ * >      RD: 192.168.0.101:999 ip-prefix 10.1.10.0/24
+                                 -                     -       -       0       i
+ * >      RD: 192.168.0.102:999 ip-prefix 10.1.20.0/24
+                                 192.168.1.102         -       100     0       65001 65012 i
+ *        RD: 192.168.0.102:999 ip-prefix 10.1.20.0/24
+                                 192.168.1.102         -       100     0       65001 65012 i
+ * >      RD: 192.168.0.103:999 ip-prefix 10.1.30.0/24
+                                 192.168.1.103         -       100     0       65001 65013 i
+ *        RD: 192.168.0.103:999 ip-prefix 10.1.30.0/24
+                                 192.168.1.103         -       100     0       65001 65013 i
+ * >      RD: 192.168.0.103:999 ip-prefix 10.1.40.0/24
+                                 192.168.1.103         -       100     0       65001 65013 i
+ *        RD: 192.168.0.103:999 ip-prefix 10.1.40.0/24
+                                 192.168.1.103         -       100     0       65001 65013 i
+leaf1(config-router-bgp-vrf-TENANT1)#
+
+leaf1(config-router-bgp-vrf-TENANT1)#show vxlan address-table
+          Vxlan Mac Address Table
+----------------------------------------------------------------------
+
+VLAN  Mac Address     Type      Prt  VTEP             Moves   Last Move
+----  -----------     ----      ---  ----             -----   ---------
+Total Remote Mac Addresses for this criterion: 0
+
+leaf1(config-router-bgp-vrf-TENANT1)#show interfaces vxlan1
+Vxlan1 is up, line protocol is up (connected)
+  Hardware is Vxlan
+  Source interface is Loopback1 and is active with 192.168.1.101
+  Listening on UDP port 4789
+  Replication/Flood Mode is headend with Flood List Source: EVPN
+  Remote MAC learning via EVPN
+  VNI mapping to VLANs
+  Static VLAN to VNI mapping is
+    [10, 10010]
+  Dynamic VLAN to VNI mapping for 'evpn' is
+    [4097, 999]
+  Note: All Dynamic VLANs used by VCS are internal VLANs.
+        Use 'show vxlan vni' for details.
+  Static VRF to VNI mapping is
+   [TENANT1, 999]
+  Shared Router MAC is 0000.0000.0000
+leaf1(config-router-bgp-vrf-TENANT1)#
+
+PC1> ping 10.1.20.10
+
+84 bytes from 10.1.20.10 icmp_seq=1 ttl=62 time=28.578 ms
+84 bytes from 10.1.20.10 icmp_seq=2 ttl=62 time=2.627 ms
+84 bytes from 10.1.20.10 icmp_seq=3 ttl=62 time=2.596 ms
+84 bytes from 10.1.20.10 icmp_seq=4 ttl=62 time=2.663 ms
+84 bytes from 10.1.20.10 icmp_seq=5 ttl=62 time=3.023 ms
+
+PC1> ping 10.1.30.10
+
+84 bytes from 10.1.30.10 icmp_seq=1 ttl=62 time=12.840 ms
+84 bytes from 10.1.30.10 icmp_seq=2 ttl=62 time=2.661 ms
+84 bytes from 10.1.30.10 icmp_seq=3 ttl=62 time=2.857 ms
+84 bytes from 10.1.30.10 icmp_seq=4 ttl=62 time=3.825 ms
+84 bytes from 10.1.30.10 icmp_seq=5 ttl=62 time=3.031 ms
+
+PC1> ping 10.1.40.10
+
+84 bytes from 10.1.40.10 icmp_seq=1 ttl=62 time=4.034 ms
+84 bytes from 10.1.40.10 icmp_seq=2 ttl=62 time=3.120 ms
+84 bytes from 10.1.40.10 icmp_seq=3 ttl=62 time=2.747 ms
+84 bytes from 10.1.40.10 icmp_seq=4 ttl=62 time=2.933 ms
+84 bytes from 10.1.40.10 icmp_seq=5 ttl=62 time=2.645 ms
+
+
